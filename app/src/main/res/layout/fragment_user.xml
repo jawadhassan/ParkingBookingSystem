@@ -6,43 +6,55 @@
 
     <TextView
         android:id="@+id/textView"
+        style="@style/Heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginBottom="@dimen/button_vertical_margin"
+        android:layout_marginTop="@dimen/button_vertical_margin"
+        android:text="TextView"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/button2"
+        style="@style/LinearLayoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/button_vertical_margin"
+        android:layout_marginLeft="@dimen/button_horizontal_margin"
+        android:layout_marginRight="@dimen/button_horizontal_margin"
+        android:layout_marginTop="@dimen/button_vertical_margin"
         android:text="Button" />
 
     <Button
         android:id="@+id/button3"
+        style="@style/LinearLayoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/button_vertical_margin"
+        android:layout_marginLeft="@dimen/button_horizontal_margin"
+        android:layout_marginRight="@dimen/button_horizontal_margin"
+        android:layout_marginTop="@dimen/button_vertical_margin"
         android:text="Button" />
 
     <Button
         android:id="@+id/button6"
+        style="@style/LinearLayoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/button_vertical_margin"
+        android:layout_marginLeft="@dimen/button_horizontal_margin"
+        android:layout_marginRight="@dimen/button_horizontal_margin"
+        android:layout_marginTop="@dimen/button_vertical_margin"
         android:text="Button" />
 
     <Button
         android:id="@+id/button7"
+        style="@style/LinearLayoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/button_vertical_margin"
+        android:layout_marginLeft="@dimen/button_horizontal_margin"
+        android:layout_marginRight="@dimen/button_horizontal_margin"
+        android:layout_marginTop="@dimen/button_vertical_margin"
         android:text="Button" />
 </LinearLayout>

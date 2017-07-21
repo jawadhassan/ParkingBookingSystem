@@ -8,4 +8,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Base application font theme. -->
+    <style name="DefaultText" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="GuessWordText" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif-bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Heading" parent="@android:style/TextAppearance.Large">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:paddingLeft">10dp</item>
+    </style>
+
+    <style name="SubHeading" parent="@android:style/TextAppearance.Medium">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
 </resources>
