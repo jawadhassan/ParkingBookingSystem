@@ -6,15 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-public class UserDetailActivity extends SingleFragmentActivity {
+public class UserBookingListActivity extends SingleFragmentActivity {
 
     public static Intent NewIntent(Context packageContext) {
-        Intent intent = new Intent(packageContext, UserDetailActivity.class);
+        Intent intent = new Intent(packageContext, UserBookingListActivity.class);
         return intent;
     }
+
     @Override
     protected Fragment createFragment() {
-        return UserDetailFragment.NewInstance();
+        return UserBookingListFragment.NewInstance();
     }
 
     @Override

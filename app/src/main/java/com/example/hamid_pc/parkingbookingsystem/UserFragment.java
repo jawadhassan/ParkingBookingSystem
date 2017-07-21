@@ -1,23 +1,59 @@
 package com.example.hamid_pc.parkingbookingsystem;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 public class UserFragment extends Fragment {
 
+    private static final String TAG = "UserFragment";
+
     private Button mNewBooking;
     private Button mViewBooking;
+    private Button mFeedback;
 
+
+    public static UserFragment NewInstance() {
+        UserFragment userFragment = new UserFragment();
+        return userFragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        MenuInflater inflater1 = getActivity().getMenuInflater();
+        inflater1.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.miProfile:
+                Intent intent = UserDetailActivity.NewIntent(getActivity());
+                startActivity(intent);
+                return true;
+            case R.id.miSignOut:
+                Log.d(TAG, "Sign Out Menu Item Called");
+
+        }
+
+        return true;
     }
 
     @Nullable
@@ -27,6 +63,36 @@ public class UserFragment extends Fragment {
 
         mNewBooking = (Button) view.findViewById(R.id.button_new_booking);
         mViewBooking = (Button) view.findViewById(R.id.button_view_booking);
+        mFeedback = (Button) view.findViewById(R.id.button_feedback);
+
+        mNewBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = NewBookingActivity.NewIntent(getActivity());
+                startActivity(intent);
+            }
+        });
+
+        mViewBooking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = UserBookingListActivity.NewIntent(getActivity());
+                startActivity(intent);
+
+            }
+        });
+
+        mFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = FeedbackActivity.NewIntent(getActivity());
+                startActivity(intent);
+
+            }
+        });
+
+
+        setHasOptionsMenu(true);
 
         return view;
     }

@@ -6,19 +6,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-public class UserDetailActivity extends SingleFragmentActivity {
+public class FeedbackActivity extends SingleFragmentActivity {
 
     public static Intent NewIntent(Context packageContext) {
-        Intent intent = new Intent(packageContext, UserDetailActivity.class);
+        Intent intent = new Intent(packageContext, FeedbackActivity.class);
         return intent;
-    }
-    @Override
-    protected Fragment createFragment() {
-        return UserDetailFragment.NewInstance();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected Fragment createFragment() {
+        return null;
     }
 }
