@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView_title_user_details"
         style="@style/Heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,30 +13,50 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="TextView"
+        android:text="@string/title_user_detail"
         android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView_user_name"
+        style="@style/DefaultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/text_label_user_name" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textView_user_email"
+        style="@style/DefaultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/text_label_user_email" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/textView_phone"
+        style="@style/DefaultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/text_label_user_phone" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/textView_valid_booking"
+        style="@style/DefaultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/text_label_valid_booking_id" />
 </LinearLayout>

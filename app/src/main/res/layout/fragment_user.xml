@@ -5,17 +5,17 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/title_user"
         style="@style/Heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/button_vertical_margin"
         android:layout_marginTop="@dimen/button_vertical_margin"
-        android:text="TextView"
+        android:text="@string/title_welcome_user"
         android:textAlignment="center" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_new_booking"
         style="@style/LinearLayoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,10 +23,10 @@
         android:layout_marginLeft="@dimen/button_horizontal_margin"
         android:layout_marginRight="@dimen/button_horizontal_margin"
         android:layout_marginTop="@dimen/button_vertical_margin"
-        android:text="Button" />
+        android:text="@string/text_button_new_booking" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button_view_booking"
         style="@style/LinearLayoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,10 +34,10 @@
         android:layout_marginLeft="@dimen/button_horizontal_margin"
         android:layout_marginRight="@dimen/button_horizontal_margin"
         android:layout_marginTop="@dimen/button_vertical_margin"
-        android:text="Button" />
+        android:text="@string/text_button_view_booking" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/button_cancel_booking"
         style="@style/LinearLayoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,10 +45,10 @@
         android:layout_marginLeft="@dimen/button_horizontal_margin"
         android:layout_marginRight="@dimen/button_horizontal_margin"
         android:layout_marginTop="@dimen/button_vertical_margin"
-        android:text="Button" />
+        android:text="@string/text_button_cancel" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/button_feedback"
         style="@style/LinearLayoutButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,5 +56,5 @@
         android:layout_marginLeft="@dimen/button_horizontal_margin"
         android:layout_marginRight="@dimen/button_horizontal_margin"
         android:layout_marginTop="@dimen/button_vertical_margin"
-        android:text="Button" />
+        android:text="@string/text_button_Feedback" />
 </LinearLayout>
