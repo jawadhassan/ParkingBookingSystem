@@ -16,6 +16,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".UserDetailActivity"></activity>
+        <activity android:name=".UserFeedbackActivity"></activity>
+        <activity android:name=".UserNewBookingActivity"></activity>
+        <activity android:name=".UserBookingListActivity"></activity>
+        <activity android:name=".UserBookingEntryActivity"></activity>
 
     </application>
 

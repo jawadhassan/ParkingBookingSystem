@@ -8,11 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class FeedbackFragment extends Fragment {
+public class UserFeedbackFragment extends Fragment {
 
-    public static FeedbackFragment NewInstance() {
-        FeedbackFragment feedbackFragment = new FeedbackFragment();
-        return feedbackFragment;
+    public static UserFeedbackFragment NewInstance() {
+        UserFeedbackFragment userFeedbackFragment = new UserFeedbackFragment();
+        return userFeedbackFragment;
     }
 
     @Override

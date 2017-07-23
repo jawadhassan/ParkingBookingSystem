@@ -50,7 +50,7 @@ public class UserDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_booking_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_user_detail, container, false);
         return view;
     }
 }

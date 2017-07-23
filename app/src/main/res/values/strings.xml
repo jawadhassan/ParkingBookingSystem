@@ -10,7 +10,7 @@
     <string name="title_slot">Slot</string>
     <string name="text_button_new_booking">New Booking</string>
     <string name="text_button_view_booking">View Booking</string>
-    <string name="text_button_Feedback">Feed Back</string>
+    <string name="text_Feedback">Feed Back</string>
     <string name="text_button_plot">Plot</string>
     <string name="text_button_slot">Slot</string>
     <string name="text_button_search">Search</string>
@@ -25,4 +25,7 @@
     <string name="text_label_slot">Slot</string>
     <string name="text_label_id">ID</string>
     <string name="text_label_date">Date</string>
+    <string name="date_picker_title">Date of Parking:</string>
+    <string name="time_picker_title">Time of Parking:</string>
+    <string name="ok">OK</string>
 </resources>

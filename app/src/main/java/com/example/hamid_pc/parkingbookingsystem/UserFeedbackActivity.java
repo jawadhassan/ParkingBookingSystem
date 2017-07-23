@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-public class NewBookingActivity extends SingleFragmentActivity {
+public class UserFeedbackActivity extends SingleFragmentActivity {
 
     public static Intent NewIntent(Context packageContext) {
-        Intent intent = new Intent(packageContext, NewBookingActivity.class);
+        Intent intent = new Intent(packageContext, UserFeedbackActivity.class);
         return intent;
     }
 
@@ -20,6 +20,6 @@ public class NewBookingActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        return NewBookingFragment.NewInstance();
+        return UserFeedbackFragment.NewInstance();
     }
 }

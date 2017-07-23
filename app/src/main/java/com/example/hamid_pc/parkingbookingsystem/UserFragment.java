@@ -20,7 +20,6 @@ public class UserFragment extends Fragment {
 
     private Button mNewBooking;
     private Button mViewBooking;
-    private Button mFeedback;
 
 
     public static UserFragment NewInstance() {
@@ -45,11 +44,18 @@ public class UserFragment extends Fragment {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()) {
             case R.id.miProfile:
-                Intent intent = UserDetailActivity.NewIntent(getActivity());
-                startActivity(intent);
+                Intent UserIntent = UserDetailActivity.NewIntent(getActivity());
+                startActivity(UserIntent);
                 return true;
             case R.id.miSignOut:
                 Log.d(TAG, "Sign Out Menu Item Called");
+                return true;
+
+            case R.id.miFeedback:
+                Intent FeedBackIntent = UserFeedbackActivity.NewIntent(getActivity());
+                startActivity(FeedBackIntent);
+                return true;
+
 
         }
 
@@ -63,12 +69,12 @@ public class UserFragment extends Fragment {
 
         mNewBooking = (Button) view.findViewById(R.id.button_new_booking);
         mViewBooking = (Button) view.findViewById(R.id.button_view_booking);
-        mFeedback = (Button) view.findViewById(R.id.button_feedback);
+
 
         mNewBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = NewBookingActivity.NewIntent(getActivity());
+                Intent intent = UserNewBookingActivity.NewIntent(getActivity());
                 startActivity(intent);
             }
         });
@@ -82,14 +88,7 @@ public class UserFragment extends Fragment {
             }
         });
 
-        mFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = FeedbackActivity.NewIntent(getActivity());
-                startActivity(intent);
 
-            }
-        });
 
 
         setHasOptionsMenu(true);
