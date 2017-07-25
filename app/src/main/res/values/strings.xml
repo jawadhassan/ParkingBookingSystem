@@ -8,6 +8,8 @@
     <string name="title_booking_detail">Booking Detail</string>
     <string name="title_user_Feedback">Feedback</string>
     <string name="title_slot">Slot</string>
+    <string name="title_add_plot">Add Plot</string>
+    <string name="title_add_slot">Add Slot</string>
     <string name="text_button_new_booking">New Booking</string>
     <string name="text_button_view_booking">View Booking</string>
     <string name="text_Feedback">Feed Back</string>
@@ -22,10 +24,15 @@
     <string name="text_label_user_email">Email ID</string>
     <string name="text_label_valid_booking_id">Valid Bookings</string>
     <string name="text_label_plot">Plot</string>
+    <string name="text_label_plot_num">Plot Number</string>
     <string name="text_label_slot">Slot</string>
     <string name="text_label_id">ID</string>
     <string name="text_label_date">Date</string>
     <string name="date_picker_title">Date of Parking:</string>
     <string name="time_picker_title">Time of Parking:</string>
     <string name="ok">OK</string>
+    <string name="edit_text_plot_name">Plot Name</string>
+    <string name="edit_text_slot_name">Slot Name</string>
+    <string name="edit_text_number_of_area">Number of Area</string>
+    <string name="edit_text_number_of_slots">Number of Slots</string>
 </resources>

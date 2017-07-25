@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:supportsRtl">
-        <activity android:name=".UserActivity">
+        <activity android:name=".AuthenticationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -20,6 +20,8 @@
         <activity android:name=".UserNewBookingActivity"></activity>
         <activity android:name=".UserBookingListActivity"></activity>
         <activity android:name=".UserBookingEntryActivity"></activity>
+        <activity android:name=".UserActivity"></activity>
+
 
     </application>
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title_add_slot"
+            style="@style/Heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_padding"
+            android:layout_marginLeft="@dimen/activity_horizontal_padding"
+            android:layout_marginRight="@dimen/activity_horizontal_padding"
+            android:layout_marginTop="@dimen/activity_vertical_padding"
+            android:text="@string/title_add_slot"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/edit_text_slot_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_padding"
+            android:layout_marginLeft="@dimen/activity_horizontal_padding"
+            android:layout_marginRight="@dimen/activity_horizontal_padding"
+            android:layout_marginTop="@dimen/activity_vertical_padding"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/edit_text_slot_name" />
+
+        <EditText
+            android:id="@+id/edit_text_number_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_padding"
+            android:layout_marginLeft="@dimen/activity_horizontal_padding"
+            android:layout_marginRight="@dimen/activity_horizontal_padding"
+            android:layout_marginTop="@dimen/activity_vertical_padding"
+            android:ems="10"
+            android:inputType="number"
+            android:text="@string/edit_text_number_of_area" />
+
+        <Button
+            android:id="@+id/button_submit"
+            style="@style/LinearLayoutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/button_horizontal_margin"
+            android:layout_marginLeft="@dimen/button_horizontal_margin"
+            android:layout_marginRight="@dimen/button_horizontal_margin"
+            android:layout_marginTop="@dimen/button_horizontal_margin"
+            android:text="@string/text_button_submit" />
+
+    </LinearLayout>
+</ScrollView>

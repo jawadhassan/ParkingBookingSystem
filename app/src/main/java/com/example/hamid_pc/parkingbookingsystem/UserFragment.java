@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class UserFragment extends Fragment {
 
@@ -48,7 +49,9 @@ public class UserFragment extends Fragment {
                 startActivity(UserIntent);
                 return true;
             case R.id.miSignOut:
-                Log.d(TAG, "Sign Out Menu Item Called");
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = AuthenticationActivity.newIntent(getActivity());
+                startActivity(intent);
                 return true;
 
             case R.id.miFeedback:
