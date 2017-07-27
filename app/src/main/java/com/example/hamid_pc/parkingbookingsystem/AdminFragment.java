@@ -15,17 +15,15 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class UserFragment extends Fragment {
+public class AdminFragment extends Fragment {
 
-    private static final String TAG = "UserFragment";
+    private Button mAddParkingButton;
+    private Button mViewBookingButton;
+    private Button mViewUserButton;
 
-    private Button mNewBooking;
-    private Button mViewBooking;
-
-
-    public static UserFragment NewInstance() {
-        UserFragment userFragment = new UserFragment();
-        return userFragment;
+    public static AdminFragment NewInstance() {
+        AdminFragment adminFragment = new AdminFragment();
+        return adminFragment;
     }
 
     @Override
@@ -33,36 +31,25 @@ public class UserFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        MenuInflater inflater1 = getActivity().getMenuInflater();
-        inflater1.inflate(R.menu.menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+        MenuInflater menuInflater = getActivity().getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
+
         switch (item.getItemId()) {
-            case R.id.miProfile:
-                Intent UserIntent = UserDetailActivity.NewIntent(getActivity());
-                startActivity(UserIntent);
-                return true;
             case R.id.miSignOut:
                 FirebaseAuth.getInstance().signOut();
-                // user is now signed out
                 Intent intent = AuthenticationActivity.newIntent(getActivity());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 getActivity().finish();
-
-
-
-                return true;
-
-            case R.id.miFeedback:
-                Intent FeedBackIntent = UserFeedbackActivity.NewIntent(getActivity());
-                startActivity(FeedBackIntent);
                 return true;
 
 
@@ -74,29 +61,21 @@ public class UserFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin, container, false);
 
-        mNewBooking = (Button) view.findViewById(R.id.button_new_booking);
-        mViewBooking = (Button) view.findViewById(R.id.button_view_booking);
+        mAddParkingButton = (Button) view.findViewById(R.id.button_add_parking);
+        mViewBookingButton = (Button) view.findViewById(R.id.button_view_booking);
+        mViewUserButton = (Button) view.findViewById(R.id.button_view_user);
 
-
-        mNewBooking.setOnClickListener(new View.OnClickListener() {
+        mAddParkingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = UserNewBookingActivity.NewIntent(getActivity());
-                startActivity(intent);
-            }
-        });
 
-        mViewBooking.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = UserBookingListActivity.NewIntent(getActivity());
+                Intent intent = AddPlotActivity.NewIntent(getActivity());
                 startActivity(intent);
 
             }
         });
-
 
         setHasOptionsMenu(true);
 

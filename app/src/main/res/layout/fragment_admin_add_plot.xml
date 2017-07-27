@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
 
         <TextView
             android:id="@+id/title_add_plot"
@@ -21,20 +17,34 @@
             android:textAlignment="center" />
 
 
-        <EditText
-            android:id="@+id/edit_text_plot_name"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/view_edittext_layout_plot_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_vertical_padding"
-            android:layout_marginLeft="@dimen/activity_horizontal_padding"
-            android:layout_marginRight="@dimen/activity_horizontal_padding"
-            android:layout_marginTop="@dimen/activity_vertical_padding"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/edit_text_plot_name" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
 
+                <EditText
+                    android:id="@+id/edit_text_plot_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_vertical_padding"
+                    android:layout_marginLeft="@dimen/activity_horizontal_padding"
+                    android:layout_marginRight="@dimen/activity_horizontal_padding"
+                    android:layout_marginTop="@dimen/activity_vertical_padding"
+                    android:ems="10"
+                    android:hint="@string/edit_text_plot_name"
+                    android:inputType="textPersonName"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/view_edittext_layout_text_plot_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
         <EditText
-            android:id="@+id/edit_text_number"
+            android:id="@+id/edit_text_plot_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_vertical_padding"
@@ -42,11 +52,12 @@
             android:layout_marginRight="@dimen/activity_horizontal_padding"
             android:layout_marginTop="@dimen/activity_vertical_padding"
             android:ems="10"
-            android:inputType="number"
-            android:text="@string/edit_text_number_of_slots" />
+            android:hint="@string/edit_text_number_of_slots"
+            android:inputType="number"/>
+        </android.support.design.widget.TextInputLayout>
 
         <Button
-            android:id="@+id/button_slot_add"
+            android:id="@+id/button_submit"
             style="@style/LinearLayoutButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,4 +68,3 @@
             android:text="@string/text_button_submit" />
 
     </LinearLayout>
-</ScrollView>

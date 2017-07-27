@@ -9,7 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:supportsRtl">
-        <activity android:name=".AuthenticationActivity">
+        <activity
+            android:name=".AuthenticationActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -21,7 +23,11 @@
         <activity android:name=".UserBookingListActivity"></activity>
         <activity android:name=".UserBookingEntryActivity"></activity>
         <activity android:name=".UserActivity"></activity>
-
+        <activity android:name=".AdminActivity"></activity>
+        <activity android:name=".AddSlotActivity"></activity>
+        <activity
+            android:name=".AddPlotActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
 
     </application>
 
