@@ -24,6 +24,7 @@
         <activity android:name=".UserBookingEntryActivity"></activity>
         <activity android:name=".UserActivity"></activity>
         <activity android:name=".AdminActivity"></activity>
+        <activity android:name=".AdminPlotListActivity"></activity>
         <activity android:name=".AddSlotActivity"></activity>
         <activity
             android:name=".AddPlotActivity"

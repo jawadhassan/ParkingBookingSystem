@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminFragment extends Fragment {
 
-    private Button mAddParkingButton;
+    private Button mViewParkingButton;
     private Button mViewBookingButton;
     private Button mViewUserButton;
 
@@ -63,15 +63,15 @@ public class AdminFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin, container, false);
 
-        mAddParkingButton = (Button) view.findViewById(R.id.button_add_parking);
+        mViewParkingButton = (Button) view.findViewById(R.id.button_view_parking);
         mViewBookingButton = (Button) view.findViewById(R.id.button_view_booking);
         mViewUserButton = (Button) view.findViewById(R.id.button_view_user);
 
-        mAddParkingButton.setOnClickListener(new View.OnClickListener() {
+        mViewParkingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = AddPlotActivity.NewIntent(getActivity());
+                Intent intent = AdminPlotListActivity.NewIntent(getActivity());
                 startActivity(intent);
 
             }

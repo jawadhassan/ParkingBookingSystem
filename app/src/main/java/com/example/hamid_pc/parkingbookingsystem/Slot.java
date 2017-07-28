@@ -4,13 +4,12 @@ package com.example.hamid_pc.parkingbookingsystem;
 public class Slot {
     private String SlotName;
     private String SlotId;
-    private String PlotId;
     private int NumOfArea;
 
-    public Slot(String slotName, String slotId, String plotId, int numOfArea) {
+    public Slot(String slotName, String slotId, int numOfArea) {
         SlotName = slotName;
         SlotId = slotId;
-        PlotId = plotId;
+
         NumOfArea = numOfArea;
     }
 
@@ -31,14 +30,6 @@ public class Slot {
 
     public void setSlotId(String slotId) {
         SlotId = slotId;
-    }
-
-    public String getPlotId() {
-        return PlotId;
-    }
-
-    public void setPlotId(String plotId) {
-        PlotId = plotId;
     }
 
     public int getNumOfArea() {

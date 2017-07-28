@@ -11,7 +11,7 @@
     <string name="title_add_plot">Add Plot</string>
     <string name="title_add_slot">Add Slot</string>
     <string name="text_button_new_booking">New Booking</string>
-    <string name="text_button_add_parking">Add Parking</string>
+    <string name="text_button_view_parking">View Parking</string>
     <string name="text_button_view_user">View User</string>
     <string name="text_button_view_booking">View Booking</string>
     <string name="text_Feedback">Feed Back</string>
@@ -37,4 +37,5 @@
     <string name="edit_text_slot_name">Slot Name</string>
     <string name="edit_text_number_of_area">Number of Area</string>
     <string name="edit_text_number_of_slots">Number of Slots</string>
+    <string name="dialog_plot_operation">Choose Operation</string>
 </resources>

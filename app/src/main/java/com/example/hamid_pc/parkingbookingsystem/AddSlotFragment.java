@@ -17,9 +17,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AddSlotFragment extends Fragment {
 
-    private static final String ARG_PLOT_ID =
-            "plot_id";
+    private static final String ARG_PLOT_ID = "plot_id";
     private final String TAG = "AddSlotActivity";
+
     private Button mSubmitButton;
     private EditText mSlotNameEditText;
     private EditText mNumOfAreasEditText;
@@ -46,7 +46,7 @@ public class AddSlotFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mPlotId = (String) getArguments().getSerializable(ARG_PLOT_ID);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference = mFirebaseDatabase.getReference("slots");
+        mDatabaseReference = mFirebaseDatabase.getReference("slots").child(mPlotId);
 
 
     }
@@ -74,7 +74,7 @@ public class AddSlotFragment extends Fragment {
 
                 mKeyReference = mDatabaseReference.push();
                 mSlotUId = mKeyReference.getKey();
-                mSlot = new Slot(mSlotName, mSlotUId, mPlotId, mAreaNumber);
+                mSlot = new Slot(mSlotName, mSlotUId, mAreaNumber);
                 mKeyReference.setValue(mSlot);
                 Intent intent = AdminActivity.NewIntent(getActivity());
                 startActivity(intent);

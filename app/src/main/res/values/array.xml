@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="plot_dialog_options">
+        <item>Add Slot</item>
+        <item>Delete Plot</item>
+    </string-array>
+</resources>
