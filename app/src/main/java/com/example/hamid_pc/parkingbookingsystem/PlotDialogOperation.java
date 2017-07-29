@@ -39,8 +39,6 @@ public class PlotDialogOperation extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
-                            case 0:
-                                Log.d(TAG, "Add Slot Clicked");
                             case 1:
                                 Log.d(TAG, "Delete Plot Clicked");
 

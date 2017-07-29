@@ -4,12 +4,12 @@ package com.example.hamid_pc.parkingbookingsystem;
 public class Plot {
 
     private String mPlotName;
-    private int mNumOfSlot;
+    private int mNumOfArea;
     private String mUuid;
 
-    public Plot(String plotName, int numOfSlot, String uuid) {
+    public Plot(String plotName, int numOfArea, String uuid) {
         mPlotName = plotName;
-        mNumOfSlot = numOfSlot;
+        mNumOfArea = numOfArea;
         mUuid = uuid;
     }
 
@@ -24,12 +24,12 @@ public class Plot {
         mPlotName = plotName;
     }
 
-    public int getNumOfSlot() {
-        return mNumOfSlot;
+    public int getNumOfArea() {
+        return mNumOfArea;
     }
 
-    public void setNumOfSlot(int numOfSlot) {
-        mNumOfSlot = numOfSlot;
+    public void setNumOfArea(int numOfArea) {
+        mNumOfArea = numOfArea;
     }
 
     public String getUuid() {

@@ -8,11 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.EditText;
 
 import java.util.Date;
 
@@ -24,8 +23,8 @@ public class UserBookingEntryFragment extends Fragment {
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
     private final String TAG = "BookingEntryFragment";
-    private Button mDateButton;
-    private Button mTimeButton;
+    private EditText mDateEditText;
+    private EditText mTimeEditText;
 
 
     public static UserBookingEntryFragment NewInstance() {
@@ -36,16 +35,15 @@ public class UserBookingEntryFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "In User Booking Entry Fragment");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_booking_entry, container, false);
-        mDateButton = (Button) view.findViewById(R.id.DatePicker);
-        mTimeButton = (Button) view.findViewById(R.id.TimePicker);
-        mDateButton.setOnClickListener(new View.OnClickListener() {
+        mDateEditText = (EditText) view.findViewById(R.id.DatePicker);
+        mTimeEditText = (EditText) view.findViewById(R.id.TimePicker);
+        mDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager manager = getFragmentManager();
@@ -56,7 +54,7 @@ public class UserBookingEntryFragment extends Fragment {
 
             }
         });
-        mTimeButton.setOnClickListener(new View.OnClickListener() {
+        mTimeEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -78,11 +76,11 @@ public class UserBookingEntryFragment extends Fragment {
         if (requestCode == REQUEST_DATE) {
             Date date = (Date) data
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-            mDateButton.setText(DateFormat.format("EEEE,MMMM d,yyyy", date));
+            mDateEditText.setText(DateFormat.format("EEEE,MMMM d,yyyy", date));
         } else if (requestCode == REQUEST_TIME) {
             Date date = (Date) data
                     .getSerializableExtra(TimePickerFragment.EXTRA_TIME);
-            mTimeButton.setText(DateFormat.format("h:mm a", date));
+            mTimeEditText.setText(DateFormat.format("h:mm a", date));
         }
 
     }

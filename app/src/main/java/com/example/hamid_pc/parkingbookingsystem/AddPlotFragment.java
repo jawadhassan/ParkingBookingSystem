@@ -1,7 +1,7 @@
 package com.example.hamid_pc.parkingbookingsystem;
 
 
-import android.content.Intent;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,21 +22,24 @@ public class AddPlotFragment extends Fragment {
 
 
     private EditText mPlotNameEditText;
-    private EditText mNumOfSlotEditText;
+    private EditText mNumOfAreaEditText;
 
     private Button mSubmitButton;
 
 
     private String mPlotName;
-    private int mNumOfSlots;
+    private int mNumOfArea;
     private String mPlotUuid;
-    private String mNumOfSlotsStringValue;
+    private String mAreaId;
+    private String mNumOfAreaStringValue;
 
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private DatabaseReference mKeyReference;
+    private DatabaseReference mAreaReference;
     private Plot mPlot;
+    private Area mArea;
     private String TAG = "AddPlotActivity";
 
 
@@ -51,6 +54,7 @@ public class AddPlotFragment extends Fragment {
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference("plots");
 
+
     }
 
     @Nullable
@@ -58,7 +62,7 @@ public class AddPlotFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_admin_add_plot, container, false);
         mPlotNameEditText = (EditText) view.findViewById(R.id.edit_text_plot_name);
-        mNumOfSlotEditText = (EditText) view.findViewById(R.id.edit_text_plot_number);
+        mNumOfAreaEditText = (EditText) view.findViewById(R.id.edit_text_area_num);
         mSubmitButton = (Button) view.findViewById(R.id.button_submit);
 
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
@@ -66,9 +70,9 @@ public class AddPlotFragment extends Fragment {
             public void onClick(View v) {
 
                 mPlotName = mPlotNameEditText.getText().toString();
-                mNumOfSlotsStringValue = mNumOfSlotEditText.getText().toString();
+                mNumOfAreaStringValue = mNumOfAreaEditText.getText().toString();
                 try {
-                    mNumOfSlots = Integer.parseInt(mNumOfSlotsStringValue);
+                    mNumOfArea = Integer.parseInt(mNumOfAreaStringValue);
                 } catch (NumberFormatException e) {
                     Log.e(TAG, "Number Format Exception:" + e.toString());
 
@@ -76,13 +80,31 @@ public class AddPlotFragment extends Fragment {
 
                 mKeyReference = mDatabaseReference.push();
                 mPlotUuid = mKeyReference.getKey();
-                mPlot = new Plot(mPlotName, mNumOfSlots, mPlotUuid);
+                mPlot = new Plot(mPlotName, mNumOfArea, mPlotUuid);
                 mKeyReference.setValue(mPlot);
-                Intent intent = AddSlotActivity.NewIntent(getActivity(), mPlotUuid);
-                startActivity(intent);
+
+                mAreaReference = mFirebaseDatabase.getReference("areas").child(mPlotUuid);
+
+
+                for (int i = 0; i < mNumOfArea; i++) {
+                    mKeyReference = mAreaReference.push();
+                    mAreaId = mKeyReference.getKey();
+                    mArea = new Area(mAreaId, mPlotUuid, "", "", "", false);
+                    mKeyReference.setValue(mArea);
+                }
+                sendResult(Activity.RESULT_OK);
+
 
             }
         });
         return view;
     }
+
+    private void sendResult(int resultCode) {
+        getActivity().setResult(resultCode);
+        getActivity().finish();
+
+    }
+
+
 }

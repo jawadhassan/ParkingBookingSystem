@@ -1,6 +1,7 @@
 package com.example.hamid_pc.parkingbookingsystem;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,15 +17,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
 public class AdminPlotListFragment extends Fragment {
 
 
     public static final String TAG = "AdminPlotListActivity";
+    private static final int REQUEST_ADD_PLOT = 3;
     public static String DIALOG_OPERATION = "com.example.hamid_pc.parkingbookingsystem.dialog_operation";
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
@@ -55,7 +59,7 @@ public class AdminPlotListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = AddPlotActivity.NewIntent(getActivity());
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_ADD_PLOT);
             }
         });
 
@@ -83,7 +87,7 @@ public class AdminPlotListFragment extends Fragment {
             protected void populateViewHolder(PlotViewHolder viewHolder, Plot model, int position) {
 
                 viewHolder.mPlotNameTextView.setText(model.getPlotName());
-                viewHolder.mPlotNumTextView.setText("" + model.getNumOfSlot());
+                viewHolder.mAreaNumTextView.setText("" + model.getNumOfArea());
                 Plot plot = getItem(position);
                 viewHolder.bindView(plot);
             }
@@ -95,19 +99,30 @@ public class AdminPlotListFragment extends Fragment {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_ADD_PLOT) {
+            Toast.makeText(getActivity(), getString(R.string.toast_plot_add_successfull), Toast.LENGTH_LONG).show();
+        }
+
+    }
+
 
     public static class PlotViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         Plot mPlot;
         TextView mPlotNameTextView;
-        TextView mPlotNumTextView;
+        TextView mAreaNumTextView;
 
 
         public PlotViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             mPlotNameTextView = (TextView) itemView.findViewById(R.id.text_view_plot_name);
-            mPlotNumTextView = (TextView) itemView.findViewById(R.id.text_view_plot_num);
+            mAreaNumTextView = (TextView) itemView.findViewById(R.id.text_view_plot_num);
 
         }
 

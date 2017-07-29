@@ -55,9 +55,6 @@ public class UserFragment extends Fragment {
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 getActivity().finish();
-
-
-
                 return true;
 
             case R.id.miFeedback:
@@ -83,7 +80,7 @@ public class UserFragment extends Fragment {
         mNewBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = UserNewBookingActivity.NewIntent(getActivity());
+                Intent intent = UserPlotListActivity.NewIntent(getActivity());
                 startActivity(intent);
             }
         });
