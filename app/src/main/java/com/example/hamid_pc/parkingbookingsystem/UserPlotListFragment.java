@@ -93,7 +93,7 @@ public class UserPlotListFragment extends Fragment {
 
             if (appCompatActivity instanceof UserPlotListActivity) {
                 UserPlotListActivity userPlotListActivity = (UserPlotListActivity) appCompatActivity;
-                Intent intent = UserBookingEntryActivity.NewIntent(userPlotListActivity);
+                Intent intent = UserBookingEntryActivity.NewIntent(userPlotListActivity, mPlot.getUuid());
                 userPlotListActivity.startActivity(intent);
             }
 

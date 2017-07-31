@@ -9,16 +9,20 @@ import android.util.Log;
 
 public class UserBookingEntryActivity extends SingleFragmentActivity {
 
+    public static final String EXTRA_PLOT =
+            "com.example.hamid_pc.parkingbookingsystem.user_booking_entry";
     private final String TAG = "UserBookingEntry";
 
-    public static Intent NewIntent(Context packageContext) {
+    public static Intent NewIntent(Context packageContext, String plotUid) {
         Intent intent = new Intent(packageContext, UserBookingEntryActivity.class);
+        intent.putExtra(EXTRA_PLOT, plotUid);
         return intent;
     }
 
     @Override
     protected Fragment createFragment() {
-        return UserBookingEntryFragment.NewInstance();
+        String plotId = (String) getIntent().getSerializableExtra(EXTRA_PLOT);
+        return UserBookingEntryFragment.NewInstance(plotId);
     }
 
     @Override

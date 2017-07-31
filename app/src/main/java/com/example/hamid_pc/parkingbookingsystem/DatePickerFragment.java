@@ -20,7 +20,7 @@ public class DatePickerFragment extends DialogFragment {
 
 
     public static final String EXTRA_DATE =
-            "com.example.hamid_pc.parkingbookingsystem.date";
+            "com.example.hamid_pc.parkingbookingsystem.sDate";
 
     private DatePicker mDatePicker;
 
