@@ -115,6 +115,7 @@ public class UserBookingEntryFragment extends Fragment {
             protected void populateViewHolder(AreaViewHolder viewHolder, Area model, int position) {
                 Area area = getItem(position);
                 viewHolder.bindView(area);
+
             }
         };
 
@@ -148,6 +149,8 @@ public class UserBookingEntryFragment extends Fragment {
             super(itemView);
             itemView.setOnClickListener(this);
             mAreaButton = (Button) itemView.findViewById(R.id.button_area);
+
+
         }
 
         @Override
@@ -158,6 +161,9 @@ public class UserBookingEntryFragment extends Fragment {
 
         public void bindView(Area area) {
             mArea = area;
+            if (mArea.getBooked()) {
+                mAreaButton.setEnabled(false);
+            }
         }
     }
 }
