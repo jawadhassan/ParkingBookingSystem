@@ -83,13 +83,13 @@ public class AddPlotFragment extends Fragment {
                 mPlot = new Plot(mPlotName, mNumOfArea, mPlotUuid);
                 mKeyReference.setValue(mPlot);
 
-                mAreaReference = mFirebaseDatabase.getReference("areas").child(mPlotUuid);
+                mAreaReference = mFirebaseDatabase.getReference("areas");
 
 
                 for (int i = 0; i < mNumOfArea; i++) {
                     mKeyReference = mAreaReference.push();
                     mAreaId = mKeyReference.getKey();
-                    mArea = new Area(mAreaId, mPlotUuid, "", "", "", false);
+                    mArea = new Area(mAreaId, mPlotUuid, null, null, 0, "", false);
                     mKeyReference.setValue(mArea);
                 }
                 sendResult(Activity.RESULT_OK);

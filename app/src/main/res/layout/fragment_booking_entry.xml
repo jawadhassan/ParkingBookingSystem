@@ -13,7 +13,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!--TODO: Change Date Picker and Time Picker Button into clickable text fields-->
+            <!--TODO: Change Date Picke
+            r and Time Picker Button into clickable text fields-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

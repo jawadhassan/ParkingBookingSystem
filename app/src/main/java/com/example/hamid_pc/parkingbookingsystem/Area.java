@@ -1,25 +1,38 @@
 package com.example.hamid_pc.parkingbookingsystem;
 
 
+import java.util.Date;
+
 public class Area {
 
     private String mAreaId;
     private String mPlotId;
-    private String mBookingStartDate;
-    private String mBookingEndDate;
+    private Date mBookingStartDate;
+    private Date mBookingStartTime;
+    private int mBookingHour;
     private String mUserId;
     private Boolean mBooked;
 
-    public Area(String areaId, String plotId, String bookingStartDate, String bookingEndDate, String userId, Boolean booked) {
+    public Area(String areaId, String plotId, Date bookingStartDate, Date bookingStartTime, int bookingHour, String userId, Boolean booked) {
         mAreaId = areaId;
         mPlotId = plotId;
         mBookingStartDate = bookingStartDate;
-        mBookingEndDate = bookingEndDate;
+        mBookingStartTime = bookingStartTime;
+        mBookingHour = bookingHour;
         mUserId = userId;
         mBooked = booked;
     }
 
     public Area() {
+    }
+
+
+    public Date getBookingStartTime() {
+        return mBookingStartTime;
+    }
+
+    public void setBookingStartTime(Date bookingStartTime) {
+        mBookingStartTime = bookingStartTime;
     }
 
     public String getAreaId() {
@@ -38,20 +51,20 @@ public class Area {
         mPlotId = plotId;
     }
 
-    public String getBookingStartDate() {
+    public Date getBookingStartDate() {
         return mBookingStartDate;
     }
 
-    public void setBookingStartDate(String bookingStartDate) {
+    public void setBookingStartDate(Date bookingStartDate) {
         mBookingStartDate = bookingStartDate;
     }
 
-    public String getBookingEndDate() {
-        return mBookingEndDate;
+    public int getBookingHour() {
+        return mBookingHour;
     }
 
-    public void setBookingEndDate(String bookingEndDate) {
-        mBookingEndDate = bookingEndDate;
+    public void setBookingHour(int bookingHour) {
+        mBookingHour = bookingHour;
     }
 
     public String getUserId() {

@@ -17,8 +17,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.util.Date;
 
@@ -30,18 +32,22 @@ public class UserBookingEntryFragment extends Fragment {
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
     private static final String ARG_PLOT_ID = "plot_id";
-    static Date sDate;
-    static Date sDateTime;
     private final String TAG = "BookingEntryFragment";
+    private Date mDate;
+    private Date mDateTime;
     private String mPlotId;
+    private int mHour;
     private EditText mDateEditText;
     private EditText mTimeEditText;
+    private EditText mHourPickerText;
     private Button mSearchButton;
     private DatabaseReference mDatabaseReference;
+    private DatabaseReference mAreaReference;
     private FirebaseDatabase mFirebaseDatabase;
+    private String mUserId;
     private RecyclerView mRecyclerView;
     private FirebaseRecyclerAdapter<Area, AreaViewHolder> mAdapter;
-
+    private Query mQuery;
 
     public static UserBookingEntryFragment NewInstance(String plotId) {
         Bundle args = new Bundle();
@@ -56,8 +62,9 @@ public class UserBookingEntryFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mPlotId = (String) getArguments().getSerializable(ARG_PLOT_ID);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference = mFirebaseDatabase.getReference("areas").child(mPlotId);
-
+        mDatabaseReference = mFirebaseDatabase.getReference("areas");
+        mQuery = mDatabaseReference.orderByChild("plotId").equalTo(mPlotId);
+        mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     }
 
@@ -69,6 +76,7 @@ public class UserBookingEntryFragment extends Fragment {
         mSearchButton = (Button) view.findViewById(R.id.button_search);
         mDateEditText = (EditText) view.findViewById(R.id.DatePicker);
         mTimeEditText = (EditText) view.findViewById(R.id.TimePicker);
+        mHourPickerText = (EditText) view.findViewById(R.id.number_picker_hours);
         mDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +105,7 @@ public class UserBookingEntryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mRecyclerView.setVisibility(View.VISIBLE);
+                mHour = Integer.parseInt(mHourPickerText.getText().toString());
 
             }
         });
@@ -109,12 +118,25 @@ public class UserBookingEntryFragment extends Fragment {
                 Area.class,
                 R.layout.list_area,
                 AreaViewHolder.class,
-                mDatabaseReference
+                mQuery
         ) {
             @Override
-            protected void populateViewHolder(AreaViewHolder viewHolder, Area model, int position) {
+            protected void populateViewHolder(final AreaViewHolder viewHolder, Area model, final int position) {
                 Area area = getItem(position);
                 viewHolder.bindView(area);
+                viewHolder.mAreaButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mAreaReference = mAdapter.getRef(position);
+                        mAreaReference.child("booked").setValue(true);
+                        mAreaReference.child("userId").setValue(mUserId);
+                        mAreaReference.child("bookingStartDate").setValue(mDate);
+                        mAreaReference.child("bookingStartTime").setValue(mDateTime);
+                        mAreaReference.child("bookingHour").setValue(mHour);
+
+                        v.setEnabled(false);
+                    }
+                });
 
             }
         };
@@ -130,13 +152,13 @@ public class UserBookingEntryFragment extends Fragment {
             return;
         }
         if (requestCode == REQUEST_DATE) {
-            sDate = (Date) data
+            mDate = (Date) data
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-            mDateEditText.setText(DateFormat.format("EEEE,MMMM d,yyyy", sDate));
+            mDateEditText.setText(DateFormat.format("EEEE,MMMM d,yyyy", mDate));
         } else if (requestCode == REQUEST_TIME) {
-            sDateTime = (Date) data
+            mDateTime = (Date) data
                     .getSerializableExtra(TimePickerFragment.EXTRA_TIME);
-            mTimeEditText.setText(DateFormat.format("h:mm a", sDateTime));
+            mTimeEditText.setText(DateFormat.format("h:mm a", mDateTime));
         }
 
     }
@@ -156,7 +178,6 @@ public class UserBookingEntryFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
-            mArea.setBooked(true);
         }
 
         public void bindView(Area area) {
