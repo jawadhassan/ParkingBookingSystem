@@ -89,7 +89,7 @@ public class AddPlotFragment extends Fragment {
                 for (int i = 0; i < mNumOfArea; i++) {
                     mKeyReference = mAreaReference.push();
                     mAreaId = mKeyReference.getKey();
-                    mArea = new Area(mAreaId, mPlotUuid, null, null, 0, "", false);
+                    mArea = new Area(mAreaId, mPlotUuid, i + 1);
                     mKeyReference.setValue(mArea);
                 }
                 sendResult(Activity.RESULT_OK);

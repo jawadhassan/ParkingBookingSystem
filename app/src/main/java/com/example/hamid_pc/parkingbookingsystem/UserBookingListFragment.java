@@ -5,6 +5,7 @@ package com.example.hamid_pc.parkingbookingsystem;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
@@ -27,7 +28,8 @@ public class UserBookingListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
-    private FirebaseRecyclerAdapter<Area, AreaViewHolder> mAdapter;
+    private DividerItemDecoration mDividerItemDecoration;
+    private FirebaseRecyclerAdapter<Booking, BookingViewHolder> mAdapter;
     private String mUid;
     private Query mQuery;
 
@@ -40,7 +42,7 @@ public class UserBookingListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mDatabaseReference = mFirebaseDatabase.getReference("areas");
+        mDatabaseReference = mFirebaseDatabase.getReference("bookings");
 
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -61,40 +63,45 @@ public class UserBookingListFragment extends Fragment {
     }
 
     public void UpdateUI() {
-        mAdapter = new FirebaseRecyclerAdapter<Area, AreaViewHolder>(
-                Area.class,
+        mAdapter = new FirebaseRecyclerAdapter<Booking, BookingViewHolder>(
+                Booking.class,
                 R.layout.list_booking,
-                AreaViewHolder.class,
+                BookingViewHolder.class,
                 mQuery
         ) {
             @Override
-            protected void populateViewHolder(final AreaViewHolder viewHolder, Area model, final int position) {
-                Area area = getItem(position);
+            protected void populateViewHolder(final BookingViewHolder viewHolder, Booking model, final int position) {
+                Booking booking = getItem(position);
                 //    viewHolder.mBookingTimeTextView.setText(model.getBookingStartDate());
                 //   SimpleDateFormat  simpleDateFormat = new SimpleDateFormat("h:mm a");
 
-                Date date = model.getBookingStartDate();
-                Date time = model.getBookingStartTime();
-                viewHolder.mBookingDateTextView.setText(DateFormat.format("EEEE,MMMM d,yyyy", date));
+                Date date = model.getStartDate();
+                Date time = model.getStartTime();
+                viewHolder.mBookingDateTextView.setText((DateFormat.format("EEEE,MMMM d,yyyy", date)));
                 viewHolder.mBookingTimeTextView.setText(DateFormat.format("h:mm a", time));
-                viewHolder.mBookingAreaTextView.setText(model.getAreaId());
-                viewHolder.bindView(area);
+                viewHolder.mBookingAreaTextView.setText(getString(R.string.area_num, model.getAreaNum()));
+                viewHolder.bindView(booking);
 
             }
         };
+
+        mDividerItemDecoration = new DividerItemDecoration(getContext(),
+                new LinearLayoutManager(getContext()).getOrientation());
+        mRecyclerView.addItemDecoration(mDividerItemDecoration);
+
 
         mRecyclerView.setAdapter(mAdapter);
 
 
     }
 
-    public static class AreaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        Area mArea;
+    public static class BookingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        Booking mBooking;
         TextView mBookingAreaTextView;
         TextView mBookingDateTextView;
         TextView mBookingTimeTextView;
 
-        public AreaViewHolder(View itemView) {
+        public BookingViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             mBookingAreaTextView = (TextView) itemView.findViewById(R.id.list_item_booking_area);
@@ -109,8 +116,8 @@ public class UserBookingListFragment extends Fragment {
 
         }
 
-        public void bindView(Area area) {
-            mArea = area;
+        public void bindView(Booking booking) {
+            mBooking = booking;
         }
     }
 }

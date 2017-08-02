@@ -42,7 +42,7 @@ public class UserBookingEntryFragment extends Fragment {
     private EditText mHourPickerText;
     private Button mSearchButton;
     private DatabaseReference mDatabaseReference;
-    private DatabaseReference mAreaReference;
+    private DatabaseReference mBookingReference;
     private FirebaseDatabase mFirebaseDatabase;
     private String mUserId;
     private RecyclerView mRecyclerView;
@@ -63,6 +63,7 @@ public class UserBookingEntryFragment extends Fragment {
         mPlotId = (String) getArguments().getSerializable(ARG_PLOT_ID);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference("areas");
+        mBookingReference = mFirebaseDatabase.getReference("bookings");
         mQuery = mDatabaseReference.orderByChild("plotId").equalTo(mPlotId);
         mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -127,12 +128,16 @@ public class UserBookingEntryFragment extends Fragment {
                 viewHolder.mAreaButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mAreaReference = mAdapter.getRef(position);
-                        mAreaReference.child("booked").setValue(true);
-                        mAreaReference.child("userId").setValue(mUserId);
-                        mAreaReference.child("bookingStartDate").setValue(mDate);
-                        mAreaReference.child("bookingStartTime").setValue(mDateTime);
-                        mAreaReference.child("bookingHour").setValue(mHour);
+
+                        Booking booking = new Booking(mPlotId, viewHolder.mArea.getAreaId(), mUserId, viewHolder.mArea.getAreaNum(), mDate, mDateTime, mHour);
+                        mBookingReference.push().setValue(booking);
+//                        mAreaReference = mAdapter.getRef(position);
+//                        mAreaReference.child("booked").setValue(true);
+//                        mAreaReference.child("userId").setValue(mUserId);
+//                        mAreaReference.child("bookingStartDate").setValue(mDate);
+//                        mAreaReference.child("bookingStartTime").setValue(mDateTime);
+//                        mAreaReference.child("bookingHour").setValue(mHour);
+
 
                         v.setEnabled(false);
                     }
@@ -182,9 +187,7 @@ public class UserBookingEntryFragment extends Fragment {
 
         public void bindView(Area area) {
             mArea = area;
-            if (mArea.getBooked()) {
-                mAreaButton.setEnabled(false);
-            }
+
         }
     }
 }

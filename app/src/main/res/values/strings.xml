@@ -42,5 +42,6 @@
     <string name="label_edit_text_time">Time of Parking:</string>
     <string name="label_edit_text_date">Date of Parking:</string>
     <string name="label_edit_text_hours">Hours of Parking:</string>
+    <string name="area_num">Area %1$d</string>
 
 </resources>

@@ -1,39 +1,22 @@
 package com.example.hamid_pc.parkingbookingsystem;
 
 
-import java.util.Date;
 
 public class Area {
 
     private String mAreaId;
     private String mPlotId;
-    private Date mBookingStartDate;
-    private Date mBookingStartTime;
-    private int mBookingHour;
-    private String mUserId;
-    private Boolean mBooked;
+    private int mAreaNum;
 
-    public Area(String areaId, String plotId, Date bookingStartDate, Date bookingStartTime, int bookingHour, String userId, Boolean booked) {
+    public Area(String areaId, String plotId, int areaNum) {
         mAreaId = areaId;
         mPlotId = plotId;
-        mBookingStartDate = bookingStartDate;
-        mBookingStartTime = bookingStartTime;
-        mBookingHour = bookingHour;
-        mUserId = userId;
-        mBooked = booked;
+        mAreaNum = areaNum;
     }
 
     public Area() {
     }
 
-
-    public Date getBookingStartTime() {
-        return mBookingStartTime;
-    }
-
-    public void setBookingStartTime(Date bookingStartTime) {
-        mBookingStartTime = bookingStartTime;
-    }
 
     public String getAreaId() {
         return mAreaId;
@@ -51,35 +34,12 @@ public class Area {
         mPlotId = plotId;
     }
 
-    public Date getBookingStartDate() {
-        return mBookingStartDate;
+
+    public int getAreaNum() {
+        return mAreaNum;
     }
 
-    public void setBookingStartDate(Date bookingStartDate) {
-        mBookingStartDate = bookingStartDate;
-    }
-
-    public int getBookingHour() {
-        return mBookingHour;
-    }
-
-    public void setBookingHour(int bookingHour) {
-        mBookingHour = bookingHour;
-    }
-
-    public String getUserId() {
-        return mUserId;
-    }
-
-    public void setUserId(String userId) {
-        mUserId = userId;
-    }
-
-    public Boolean getBooked() {
-        return mBooked;
-    }
-
-    public void setBooked(Boolean booked) {
-        mBooked = booked;
+    public void setAreaNum(int areaNum) {
+        mAreaNum = areaNum;
     }
 }
