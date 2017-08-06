@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,6 +25,7 @@ public class UserPlotListFragment extends Fragment {
     private final String TAG = "UserPlotListActivity";
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
+    private DividerItemDecoration mDividerItemDecoration;
     private RecyclerView mRecyclerView;
     private FirebaseRecyclerAdapter<Plot, PlotViewHolder> mAdapter;
 
@@ -48,6 +50,10 @@ public class UserPlotListFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.plot_recycler_view);
         UpdateUI();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mDividerItemDecoration = new DividerItemDecoration(getContext(),
+                new LinearLayoutManager(getContext()).getOrientation());
+        mRecyclerView.addItemDecoration(mDividerItemDecoration);
+
         return view;
     }
 

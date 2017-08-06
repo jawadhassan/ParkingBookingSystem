@@ -2,6 +2,7 @@
     <string name="app_name">ParkingBookingSystem</string>
     <string name="menu_sign_out">Sign Out</string>
     <string name="menu_profile_detail">My Profile</string>
+    <string name="menu_delete">Delete</string>
     <string name="title_welcome_user">Welcome to Parking Booking System</string>
     <string name="title_user_name">Welcome</string>
     <string name="title_user_detail">My Detail</string>

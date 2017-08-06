@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/miDelete"
-        android:title="@string/menu_profile_detail"
-        app:showAsAction="ifRoom|withText" />
+        android:title="@string/menu_delete"
+        app:showAsAction="always"/>
 
 </menu>

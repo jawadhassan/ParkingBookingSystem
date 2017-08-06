@@ -77,6 +77,15 @@ public class AdminFragment extends Fragment {
             }
         });
 
+
+        mViewUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = AdminUserListActivity.NewIntent(getActivity());
+                startActivity(intent);
+            }
+        });
+
         setHasOptionsMenu(true);
 
         return view;

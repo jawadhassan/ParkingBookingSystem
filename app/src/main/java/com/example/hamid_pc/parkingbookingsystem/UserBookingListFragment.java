@@ -43,9 +43,7 @@ public class UserBookingListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mDatabaseReference = mFirebaseDatabase.getReference("bookings");
-
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         mQuery = mDatabaseReference.orderByChild("userId").equalTo(mUid);
 
 
@@ -72,9 +70,6 @@ public class UserBookingListFragment extends Fragment {
             @Override
             protected void populateViewHolder(final BookingViewHolder viewHolder, Booking model, final int position) {
                 Booking booking = getItem(position);
-                //    viewHolder.mBookingTimeTextView.setText(model.getBookingStartDate());
-                //   SimpleDateFormat  simpleDateFormat = new SimpleDateFormat("h:mm a");
-
                 Date date = model.getStartDate();
                 Date time = model.getStartTime();
                 viewHolder.mBookingDateTextView.setText((DateFormat.format("EEEE,MMMM d,yyyy", date)));

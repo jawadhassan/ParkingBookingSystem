@@ -3,6 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
+
     <TextView
         android:id="@+id/textView_title_user_details"
         style="@style/Heading"
@@ -13,7 +14,7 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/title_user_detail"
-        android:textAlignment="center" />
+        android:textAlignment="center"/>
 
 
     <LinearLayout

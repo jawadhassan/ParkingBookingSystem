@@ -26,6 +26,9 @@
         <activity android:name=".AdminActivity"></activity>
         <activity android:name=".AdminPlotListActivity"></activity>
         <activity android:name=".AddSlotActivity"></activity>
+        <activity android:name=".AdminUserDetailActivity"></activity>
+        <activity android:name=".AdminUserListActivity"></activity>
+
         <activity
             android:name=".AddPlotActivity"
             android:windowSoftInputMode="adjustResize"></activity>
