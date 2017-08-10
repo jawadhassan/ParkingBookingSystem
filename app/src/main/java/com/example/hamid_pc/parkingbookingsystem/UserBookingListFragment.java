@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-import java.util.Date;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 public class UserBookingListFragment extends Fragment {
 
@@ -70,15 +72,21 @@ public class UserBookingListFragment extends Fragment {
             @Override
             protected void populateViewHolder(final BookingViewHolder viewHolder, Booking model, final int position) {
                 Booking booking = getItem(position);
-                Date date = model.getStartDate();
-                Date time = model.getStartTime();
-                viewHolder.mBookingDateTextView.setText((DateFormat.format("EEEE,MMMM d,yyyy", date)));
-                viewHolder.mBookingTimeTextView.setText(DateFormat.format("h:mm a", time));
+                Long startDateTimeInMillis = model.getStartDateTime();
+
+                DateTime startDateTime = new DateTime(Long.valueOf(startDateTimeInMillis), DateTimeZone.UTC);
+                DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("d MMMM, yyyy");
+                String strDate = startDateTime.toString(dateTimeFormatter);
+                viewHolder.mBookingDateTextView.setText(strDate);
+                dateTimeFormatter = DateTimeFormat.forPattern("hh:mm ");
+                String strTime = startDateTime.toString(dateTimeFormatter);
+                viewHolder.mBookingTimeTextView.setText(strTime);
                 viewHolder.mBookingAreaTextView.setText(getString(R.string.area_num, model.getAreaNum()));
                 viewHolder.bindView(booking);
 
             }
         };
+
 
         mDividerItemDecoration = new DividerItemDecoration(getContext(),
                 new LinearLayoutManager(getContext()).getOrientation());

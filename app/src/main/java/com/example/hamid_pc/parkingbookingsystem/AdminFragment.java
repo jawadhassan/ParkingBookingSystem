@@ -17,9 +17,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminFragment extends Fragment {
 
+    private final String TAG = "AdminActivity";
     private Button mViewParkingButton;
     private Button mViewBookingButton;
     private Button mViewUserButton;
+    private Button mFeedBackButton;
 
     public static AdminFragment NewInstance() {
         AdminFragment adminFragment = new AdminFragment();
@@ -66,6 +68,23 @@ public class AdminFragment extends Fragment {
         mViewParkingButton = (Button) view.findViewById(R.id.button_view_parking);
         mViewBookingButton = (Button) view.findViewById(R.id.button_view_booking);
         mViewUserButton = (Button) view.findViewById(R.id.button_view_user);
+        mFeedBackButton = (Button) view.findViewById(R.id.button_feedback);
+
+
+        mViewBookingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        mFeedBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = AdminFeedbackActivity.NewIntent(getActivity());
+                startActivity(intent);
+            }
+        });
 
         mViewParkingButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -9,7 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +18,20 @@ import android.widget.EditText;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.Date;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.Interval;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import static org.joda.time.DateTimeZone.UTC;
 
 
 public class UserBookingEntryFragment extends Fragment {
@@ -33,8 +42,9 @@ public class UserBookingEntryFragment extends Fragment {
     private static final int REQUEST_TIME = 1;
     private static final String ARG_PLOT_ID = "plot_id";
     private final String TAG = "BookingEntryFragment";
-    private Date mDate;
-    private Date mDateTime;
+    private DateTime mDate;
+    private DateTime mDateTime;
+    private Long mDateInMilli;
     private String mPlotId;
     private int mHour;
     private EditText mDateEditText;
@@ -127,10 +137,67 @@ public class UserBookingEntryFragment extends Fragment {
                 viewHolder.bindView(area);
                 viewHolder.mAreaButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(final View v) {
 
-                        Booking booking = new Booking(mPlotId, viewHolder.mArea.getAreaId(), mUserId, viewHolder.mArea.getAreaNum(), mDate, mDateTime, mHour);
-                        mBookingReference.push().setValue(booking);
+
+                        mDate = mDate.hourOfDay().setCopy(mDateTime.getHourOfDay());
+                        mDate = mDate.minuteOfHour().setCopy(mDateTime.getMinuteOfHour());
+                        mDate = mDate.secondOfMinute().setCopy(mDateTime.getSecondOfMinute());
+
+                        mDateInMilli = mDate.toDateTime(UTC).getMillis();
+
+
+                        mBookingReference.orderByChild("areaId").equalTo(viewHolder.mArea.getAreaId()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                            Booking booking = new Booking(mPlotId, viewHolder.mArea.getAreaId(),
+                                    mUserId, viewHolder.mArea.getAreaNum(), mDateInMilli, mHour);
+
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    for (DataSnapshot preBookedSnapShot : dataSnapshot.getChildren()) {
+
+                                        Booking preBooking = preBookedSnapShot.getValue(Booking.class);
+                                        DateTime preBookedStartDateTime = new DateTime(preBooking.getStartDateTime(), DateTimeZone.UTC);
+                                        DateTime preBookedEndDateTime = preBookedStartDateTime.plusHours(preBooking.getHour());
+                                        DateTime BookingEndDateTime = mDate.plus(mHour);
+
+
+                                        BookingEndDateTime = BookingEndDateTime.minus(1);
+                                        preBookedEndDateTime = BookingEndDateTime.minus(1);
+
+                                        Interval intervalOne = new Interval(preBookedStartDateTime, preBookedEndDateTime);
+                                        Interval intervalTwo = new Interval(mDate, BookingEndDateTime);
+
+
+                                        if (intervalOne.overlaps(intervalTwo)) {
+                                            Log.d(TAG, "Both dates overlap");
+                                            // mBookingReference.push().setValue(booking);
+
+
+                                        } else if (intervalOne.getEnd().isAfter(intervalTwo.getStart())) {
+                                            Log.d(TAG, "Start of Inerval One overlaps Interval two");
+                                        } else if (intervalOne.getStart().isBefore(intervalTwo.getEnd())) {
+                                            Log.d(TAG, "Start of Interval One and End of Interval Overlap");
+                                        } else {
+                                            Log.d(TAG, "EveryThings seems to be fine");
+                                        }
+
+                                        // Inner coditional statement ends here
+                                    }
+
+                                } else {
+                                    mBookingReference.push().setValue(booking);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
 //                        mAreaReference = mAdapter.getRef(position);
 //                        mAreaReference.child("booked").setValue(true);
 //                        mAreaReference.child("userId").setValue(mUserId);
@@ -139,7 +206,7 @@ public class UserBookingEntryFragment extends Fragment {
 //                        mAreaReference.child("bookingHour").setValue(mHour);
 
 
-                        v.setEnabled(false);
+
                     }
                 });
 
@@ -157,13 +224,18 @@ public class UserBookingEntryFragment extends Fragment {
             return;
         }
         if (requestCode == REQUEST_DATE) {
-            mDate = (Date) data
+            mDate = (DateTime) data
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-            mDateEditText.setText(DateFormat.format("EEEE,MMMM d,yyyy", mDate));
+
+            DateTimeFormatter fmt = DateTimeFormat.forPattern("d MMMM, yyyy");
+            String str = mDate.toString(fmt);
+            mDateEditText.setText(str);
         } else if (requestCode == REQUEST_TIME) {
-            mDateTime = (Date) data
+            mDateTime = (DateTime) data
                     .getSerializableExtra(TimePickerFragment.EXTRA_TIME);
-            mTimeEditText.setText(DateFormat.format("h:mm a", mDateTime));
+            DateTimeFormatter fmt = DateTimeFormat.forPattern("hh:mm");
+            String str = mDateTime.toString(fmt);
+            mTimeEditText.setText(str);
         }
 
     }

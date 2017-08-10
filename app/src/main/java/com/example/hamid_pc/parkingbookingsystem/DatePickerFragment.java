@@ -12,8 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
+import org.joda.time.DateTime;
 
 
 public class DatePickerFragment extends DialogFragment {
@@ -42,14 +41,14 @@ public class DatePickerFragment extends DialogFragment {
                         int year = mDatePicker.getYear();
                         int month = mDatePicker.getMonth();
                         int day = mDatePicker.getDayOfMonth();
-                        Date date = new GregorianCalendar(year, month, day).getTime();
+                        DateTime date = new DateTime(year, month + 1, day, 0, 0, 0);
                         sendResult(Activity.RESULT_OK, date);
                     }
                 })
                 .create();
     }
 
-    private void sendResult(int resultCode, Date date) {
+    private void sendResult(int resultCode, DateTime date) {
         if (getTargetFragment() == null) {
             return;
         }

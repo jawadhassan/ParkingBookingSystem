@@ -48,9 +48,10 @@ public class AdminPlotListFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_admin_plot_list, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.plot_recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         mFAB = (FloatingActionButton) view.findViewById(R.id.button_add_parking);
         UpdateUI();
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mDividerItemDecoration = new DividerItemDecoration(getContext(),
                 new LinearLayoutManager(getContext()).getOrientation());
         mRecyclerView.addItemDecoration(mDividerItemDecoration);

@@ -28,6 +28,7 @@
         <activity android:name=".AddSlotActivity"></activity>
         <activity android:name=".AdminUserDetailActivity"></activity>
         <activity android:name=".AdminUserListActivity"></activity>
+        <activity android:name=".AdminFeedbackActivity"></activity>
 
         <activity
             android:name=".AddPlotActivity"

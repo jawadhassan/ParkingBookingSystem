@@ -1,8 +1,6 @@
 package com.example.hamid_pc.parkingbookingsystem;
 
 
-import java.util.Date;
-
 public class Booking {
 
 
@@ -10,16 +8,14 @@ public class Booking {
     private String mAreaId;
     private String mUserId;
     private int mAreaNum;
-    private Date mStartDate;
-    private Date mStartTime;
+    private Long mStartDateTime;
     private int mHour;
 
-    public Booking(String plotId, String areaId, String userId, int areaNum, Date startDate, Date startTime, int hour) {
+    public Booking(String plotId, String areaId, String userId, int areaNum, Long startDateTime, int hour) {
         mPlotId = plotId;
         mAreaId = areaId;
         mUserId = userId;
-        mStartDate = startDate;
-        mStartTime = startTime;
+        mStartDateTime = startDateTime;
         mAreaNum = areaNum;
         mHour = hour;
     }
@@ -59,20 +55,12 @@ public class Booking {
         mAreaId = areaId;
     }
 
-    public Date getStartDate() {
-        return mStartDate;
+    public Long getStartDateTime() {
+        return mStartDateTime;
     }
 
-    public void setStartDate(Date startDate) {
-        mStartDate = startDate;
-    }
-
-    public Date getStartTime() {
-        return mStartTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        mStartTime = startTime;
+    public void setStartDateTime(Long startDateTime) {
+        mStartDateTime = startDateTime;
     }
 
     public int getHour() {

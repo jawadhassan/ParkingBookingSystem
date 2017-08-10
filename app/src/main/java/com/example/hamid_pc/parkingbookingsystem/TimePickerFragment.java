@@ -14,9 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TimePicker;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import org.joda.time.DateTime;
 
 
 public class TimePickerFragment extends DialogFragment {
@@ -40,11 +38,12 @@ public class TimePickerFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        final Calendar calendar = Calendar.getInstance();
 
-                        int year = calendar.get(Calendar.YEAR);
-                        int month = calendar.get(Calendar.MONTH);
-                        int day = calendar.get(Calendar.DAY_OF_MONTH);
+                        DateTime dateTime = new DateTime();
+
+                        int year = dateTime.getYear();
+                        int month = dateTime.getMonthOfYear();
+                        int day = dateTime.getDayOfMonth();
                         int hour;
                         int minute;
 
@@ -59,15 +58,16 @@ public class TimePickerFragment extends DialogFragment {
                         }
 
 
-                        Date date = new GregorianCalendar(year, month, day, hour, minute).getTime();
-                        sendResult(Activity.RESULT_OK, date);
+//                        Date date = new GregorianCalendar(year, month, day, hour, minute).getTime();
+                        DateTime localDateTime = new DateTime(year, month, day, hour, minute);
+                        sendResult(Activity.RESULT_OK, localDateTime);
 
                     }
                 })
                 .create();
     }
 
-    private void sendResult(int resultCode, Date date) {
+    private void sendResult(int resultCode, DateTime date) {
         if (getTargetFragment() == null) {
             return;
         } else {
