@@ -162,10 +162,6 @@ public class UserBookingEntryFragment extends Fragment {
                                         DateTime preBookedEndDateTime = preBookedStartDateTime.plusHours(preBooking.getHour());
                                         DateTime BookingEndDateTime = mDate.plus(mHour);
 
-
-                                        BookingEndDateTime = BookingEndDateTime.minus(1);
-                                        preBookedEndDateTime = BookingEndDateTime.minus(1);
-
                                         Interval intervalOne = new Interval(preBookedStartDateTime, preBookedEndDateTime);
                                         Interval intervalTwo = new Interval(mDate, BookingEndDateTime);
 
@@ -181,7 +177,7 @@ public class UserBookingEntryFragment extends Fragment {
                                             Log.d(TAG, "Start of Interval One and End of Interval Overlap");
                                         } else {
                                             Log.d(TAG, "EveryThings seems to be fine");
-                                        }
+                                    }
 
                                         // Inner coditional statement ends here
                                     }
