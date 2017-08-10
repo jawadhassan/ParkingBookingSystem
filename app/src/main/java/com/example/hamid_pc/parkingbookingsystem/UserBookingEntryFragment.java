@@ -77,6 +77,8 @@ public class UserBookingEntryFragment extends Fragment {
         mQuery = mDatabaseReference.orderByChild("plotId").equalTo(mPlotId);
         mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        mDate = new DateTime();
+        mDateTime = new DateTime();
     }
 
     @Nullable
@@ -140,6 +142,7 @@ public class UserBookingEntryFragment extends Fragment {
                     public void onClick(final View v) {
 
 
+
                         mDate = mDate.hourOfDay().setCopy(mDateTime.getHourOfDay());
                         mDate = mDate.minuteOfHour().setCopy(mDateTime.getMinuteOfHour());
                         mDate = mDate.secondOfMinute().setCopy(mDateTime.getSecondOfMinute());
@@ -159,8 +162,36 @@ public class UserBookingEntryFragment extends Fragment {
 
                                         Booking preBooking = preBookedSnapShot.getValue(Booking.class);
                                         DateTime preBookedStartDateTime = new DateTime(preBooking.getStartDateTime(), DateTimeZone.UTC);
+
+/*
                                         DateTime preBookedEndDateTime = preBookedStartDateTime.plusHours(preBooking.getHour());
                                         DateTime BookingEndDateTime = mDate.plus(mHour);
+*/
+
+                                        DateTime preBookedEndDateTime = preBookedStartDateTime.minusMinutes(1);
+
+                                        DateTimeFormatter fmt = DateTimeFormat.forPattern("h:m d MMMM, yyyy");
+
+                                        String strTwo = preBookedEndDateTime.toString(fmt);
+                                        Log.d(TAG, "Pre Booked End Date" + strTwo);
+
+                                        DateTime BookingEndDateTime = mDate.minusMinutes(1);
+                                        String strOne = BookingEndDateTime.toString(fmt);
+                                        Log.d(TAG, "Booking End Date" + strOne);
+
+
+                                        preBookedEndDateTime = preBookedEndDateTime.plusHours(preBooking.getHour());
+                                        BookingEndDateTime = BookingEndDateTime.plusHours(mHour);
+
+                                        String str = BookingEndDateTime.toString(fmt);
+                                        Log.d(TAG, "Booking End Date" + str);
+
+                                        String strThree = preBookedEndDateTime.toString(fmt);
+                                        Log.d(TAG, "Pre Booked End Date" + strThree);
+
+                                        String strFour = preBookedStartDateTime.toString(fmt);
+                                        Log.d(TAG, "Pre Booked Start Date" + strFour);
+
 
                                         Interval intervalOne = new Interval(preBookedStartDateTime, preBookedEndDateTime);
                                         Interval intervalTwo = new Interval(mDate, BookingEndDateTime);
@@ -170,13 +201,13 @@ public class UserBookingEntryFragment extends Fragment {
                                             Log.d(TAG, "Both dates overlap");
                                             // mBookingReference.push().setValue(booking);
 
-
-                                        } else if (intervalOne.getEnd().isAfter(intervalTwo.getStart())) {
+                                        } else if (intervalOne.getEnd().isAfter(intervalTwo.getStart()) && intervalOne.getStart().isBefore(intervalTwo.getEnd())) {
                                             Log.d(TAG, "Start of Inerval One overlaps Interval two");
-                                        } else if (intervalOne.getStart().isBefore(intervalTwo.getEnd())) {
+                                        } else if (intervalOne.getStart().isBefore(intervalTwo.getEnd()) && intervalOne.getStart().isAfter(intervalTwo.getStart())) {
                                             Log.d(TAG, "Start of Interval One and End of Interval Overlap");
                                         } else {
                                             Log.d(TAG, "EveryThings seems to be fine");
+                                            mBookingReference.push().setValue(booking);
                                     }
 
                                         // Inner coditional statement ends here
