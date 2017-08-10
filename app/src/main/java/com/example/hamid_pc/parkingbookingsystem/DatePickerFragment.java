@@ -22,6 +22,7 @@ public class DatePickerFragment extends DialogFragment {
             "com.example.hamid_pc.parkingbookingsystem.sDate";
 
     private DatePicker mDatePicker;
+    private DateTime mDateTime;
 
     @NonNull
     @Override
@@ -30,7 +31,10 @@ public class DatePickerFragment extends DialogFragment {
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.dialog_date, null);
 
+
+        mDateTime = DateTime.now();
         mDatePicker = (DatePicker) v.findViewById(R.id.dialog_date_date_picker);
+        mDatePicker.setMinDate(mDateTime.getMillis());
 
         return new AlertDialog.Builder(getActivity())
                 .setView(v)

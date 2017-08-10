@@ -207,7 +207,10 @@ public class UserBookingEntryFragment extends Fragment {
                                             Log.d(TAG, "Start of Interval One and End of Interval Overlap");
                                         } else {
                                             Log.d(TAG, "EveryThings seems to be fine");
-                                            mBookingReference.push().setValue(booking);
+                                            // mBookingReference.push().setValue(booking);
+
+                                            v.setEnabled(false);
+
                                     }
 
                                         // Inner coditional statement ends here
