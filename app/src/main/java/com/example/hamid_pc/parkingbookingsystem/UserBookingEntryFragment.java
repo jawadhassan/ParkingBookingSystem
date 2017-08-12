@@ -42,6 +42,7 @@ public class UserBookingEntryFragment extends Fragment {
     private static final int REQUEST_TIME = 1;
     private static final String ARG_PLOT_ID = "plot_id";
     private final String TAG = "BookingEntryFragment";
+    private Boolean mBooked;
     private DateTime mDate;
     private DateTime mDateTime;
     private Long mDateInMilli;
@@ -112,13 +113,19 @@ public class UserBookingEntryFragment extends Fragment {
 
             }
         });
-        UpdateUI();
+
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mRecyclerView.setVisibility(View.VISIBLE);
+
                 mHour = Integer.parseInt(mHourPickerText.getText().toString());
+                mDate = mDate.hourOfDay().setCopy(mDateTime.getHourOfDay());
+                mDate = mDate.minuteOfHour().setCopy(mDateTime.getMinuteOfHour());
+                mDate = mDate.secondOfMinute().setCopy(mDateTime.getSecondOfMinute());
+                mDateInMilli = mDate.toDateTime(UTC).getMillis();
+                UpdateUI();
+                mRecyclerView.setVisibility(View.VISIBLE);
 
             }
         });
@@ -137,105 +144,91 @@ public class UserBookingEntryFragment extends Fragment {
             protected void populateViewHolder(final AreaViewHolder viewHolder, Area model, final int position) {
                 Area area = getItem(position);
                 viewHolder.bindView(area);
-                viewHolder.mAreaButton.setOnClickListener(new View.OnClickListener() {
+
+
+                mBookingReference.orderByChild("areaId").equalTo(viewHolder.mArea.getAreaId()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+
                     @Override
-                    public void onClick(final View v) {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            for (DataSnapshot preBookedSnapShot : dataSnapshot.getChildren()) {
+                                Booking preBooking = preBookedSnapShot.getValue(Booking.class);
+                                DateTime preBookedStartDateTime = new DateTime(preBooking.getStartDateTime(), DateTimeZone.UTC);
+
+                                DateTime preBookedEndDateTime = preBookedStartDateTime.minusMinutes(1);
+
+                                DateTimeFormatter fmt = DateTimeFormat.forPattern("h:m d MMMM, yyyy");
+
+                                String strTwo = preBookedEndDateTime.toString(fmt);
+                                Log.d(TAG, "Pre mBooked End Date" + strTwo);
+
+                                DateTime BookingEndDateTime = mDate.minusMinutes(1);
+                                String strOne = BookingEndDateTime.toString(fmt);
+                                Log.d(TAG, "Booking End Date" + strOne);
 
 
+                                preBookedEndDateTime = preBookedEndDateTime.plusHours(preBooking.getHour());
+                                BookingEndDateTime = BookingEndDateTime.plusHours(mHour);
 
-                        mDate = mDate.hourOfDay().setCopy(mDateTime.getHourOfDay());
-                        mDate = mDate.minuteOfHour().setCopy(mDateTime.getMinuteOfHour());
-                        mDate = mDate.secondOfMinute().setCopy(mDateTime.getSecondOfMinute());
+                                String str = BookingEndDateTime.toString(fmt);
+                                Log.d(TAG, "Booking End Date" + str);
 
-                        mDateInMilli = mDate.toDateTime(UTC).getMillis();
+                                String strThree = preBookedEndDateTime.toString(fmt);
+                                Log.d(TAG, "Pre mBooked End Date" + strThree);
 
-
-                        mBookingReference.orderByChild("areaId").equalTo(viewHolder.mArea.getAreaId()).addListenerForSingleValueEvent(new ValueEventListener() {
-
-                            Booking booking = new Booking(mPlotId, viewHolder.mArea.getAreaId(),
-                                    mUserId, viewHolder.mArea.getAreaNum(), mDateInMilli, mHour);
-
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.exists()) {
-                                    for (DataSnapshot preBookedSnapShot : dataSnapshot.getChildren()) {
-
-                                        Booking preBooking = preBookedSnapShot.getValue(Booking.class);
-                                        DateTime preBookedStartDateTime = new DateTime(preBooking.getStartDateTime(), DateTimeZone.UTC);
-
-/*
-                                        DateTime preBookedEndDateTime = preBookedStartDateTime.plusHours(preBooking.getHour());
-                                        DateTime BookingEndDateTime = mDate.plus(mHour);
-*/
-
-                                        DateTime preBookedEndDateTime = preBookedStartDateTime.minusMinutes(1);
-
-                                        DateTimeFormatter fmt = DateTimeFormat.forPattern("h:m d MMMM, yyyy");
-
-                                        String strTwo = preBookedEndDateTime.toString(fmt);
-                                        Log.d(TAG, "Pre Booked End Date" + strTwo);
-
-                                        DateTime BookingEndDateTime = mDate.minusMinutes(1);
-                                        String strOne = BookingEndDateTime.toString(fmt);
-                                        Log.d(TAG, "Booking End Date" + strOne);
+                                String strFour = preBookedStartDateTime.toString(fmt);
+                                Log.d(TAG, "Pre mBooked Start Date" + strFour);
 
 
-                                        preBookedEndDateTime = preBookedEndDateTime.plusHours(preBooking.getHour());
-                                        BookingEndDateTime = BookingEndDateTime.plusHours(mHour);
-
-                                        String str = BookingEndDateTime.toString(fmt);
-                                        Log.d(TAG, "Booking End Date" + str);
-
-                                        String strThree = preBookedEndDateTime.toString(fmt);
-                                        Log.d(TAG, "Pre Booked End Date" + strThree);
-
-                                        String strFour = preBookedStartDateTime.toString(fmt);
-                                        Log.d(TAG, "Pre Booked Start Date" + strFour);
+                                Interval intervalOne = new Interval(preBookedStartDateTime, preBookedEndDateTime);
+                                Interval intervalTwo = new Interval(mDate, BookingEndDateTime);
 
 
-                                        Interval intervalOne = new Interval(preBookedStartDateTime, preBookedEndDateTime);
-                                        Interval intervalTwo = new Interval(mDate, BookingEndDateTime);
+                                if (intervalOne.overlaps(intervalTwo)) {
+                                    Log.d(TAG, "Both dates overlap");
+                                    // mBookingReference.push().setValue(booking)
+                                    mBooked = true;
 
+                                } else if (intervalOne.getEnd().isAfter(intervalTwo.getStart()) && intervalOne.getStart().isBefore(intervalTwo.getEnd())) {
+                                    Log.d(TAG, "Start of Interval One overlaps Interval two");
+                                    mBooked = true;
 
-                                        if (intervalOne.overlaps(intervalTwo)) {
-                                            Log.d(TAG, "Both dates overlap");
-                                            // mBookingReference.push().setValue(booking);
-
-                                        } else if (intervalOne.getEnd().isAfter(intervalTwo.getStart()) && intervalOne.getStart().isBefore(intervalTwo.getEnd())) {
-                                            Log.d(TAG, "Start of Inerval One overlaps Interval two");
-                                        } else if (intervalOne.getStart().isBefore(intervalTwo.getEnd()) && intervalOne.getStart().isAfter(intervalTwo.getStart())) {
-                                            Log.d(TAG, "Start of Interval One and End of Interval Overlap");
-                                        } else {
-                                            Log.d(TAG, "EveryThings seems to be fine");
-                                            // mBookingReference.push().setValue(booking);
-
-                                            v.setEnabled(false);
-
-                                    }
-
-                                        // Inner coditional statement ends here
-                                    }
+                                } else if (intervalOne.getStart().isBefore(intervalTwo.getEnd()) && intervalOne.getStart().isAfter(intervalTwo.getStart())) {
+                                    Log.d(TAG, "Start of Interval One and End of Interval Overlap");
+                                    mBooked = true;
 
                                 } else {
-                                    mBookingReference.push().setValue(booking);
+                                    Log.d(TAG, "EveryThings seems to be fine");
+                                    mBooked = false;
+                                    //v.setEnabled(false);
                                 }
                             }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                            viewHolder.mAreaButton.setEnabled(!mBooked);
 
-                            }
-                        });
+                        } else {
+                            mBooked = false;
+                            viewHolder.mAreaButton.setEnabled(!mBooked);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
 
-//                        mAreaReference = mAdapter.getRef(position);
-//                        mAreaReference.child("booked").setValue(true);
-//                        mAreaReference.child("userId").setValue(mUserId);
-//                        mAreaReference.child("bookingStartDate").setValue(mDate);
-//                        mAreaReference.child("bookingStartTime").setValue(mDateTime);
-//                        mAreaReference.child("bookingHour").setValue(mHour);
-
-
+                viewHolder.mAreaButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        if (mBooked) {
+                            Booking booking = new Booking(mPlotId, viewHolder.mArea.getAreaId(),
+                                    mUserId, viewHolder.mArea.getAreaNum(), mDateInMilli, mHour);
+                            mBookingReference.push().setValue(booking);
+                            v.setEnabled(false);
+                        }
 
                     }
                 });
@@ -274,10 +267,12 @@ public class UserBookingEntryFragment extends Fragment {
         Area mArea;
         Button mAreaButton;
 
+
         public AreaViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             mAreaButton = (Button) itemView.findViewById(R.id.button_area);
+            mAreaButton.setEnabled(false);
 
 
         }

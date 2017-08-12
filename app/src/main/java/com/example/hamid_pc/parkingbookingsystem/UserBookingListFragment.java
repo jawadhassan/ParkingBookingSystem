@@ -1,7 +1,6 @@
 package com.example.hamid_pc.parkingbookingsystem;
 
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -55,7 +54,7 @@ public class UserBookingListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user_booking_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_booking_list, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.booking_list_recycler_view);
         UpdateUI();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -116,6 +115,7 @@ public class UserBookingListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
+
 
         }
 

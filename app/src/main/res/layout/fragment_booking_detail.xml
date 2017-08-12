@@ -17,7 +17,7 @@
         android:textAlignment="center" />
 
     <TextView
-        android:id="@+id/textView__label_plot"
+        android:id="@+id/text_view_plot_name"
         style="@style/DefaultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:text="@string/text_label_plot" />
 
     <TextView
-        android:id="@+id/textView_label_slot"
+        android:id="@+id/text_view_area_num"
         style="@style/DefaultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         android:text="@string/text_label_slot" />
 
     <TextView
-        android:id="@+id/textView_label_ID"
+        android:id="@+id/text_view_user_name"
         style="@style/DefaultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,8 +49,9 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/text_label_id" />
 
+
     <TextView
-        android:id="@+id/textView_label_date"
+        android:id="@+id/text_view_booking_date"
         style="@style/DefaultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,4 +61,25 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:text="@string/text_label_date" />
 
+    <TextView
+        android:id="@+id/text_view_booking_time"
+        style="@style/DefaultText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/text_label_date"/>
+
+    <TextView
+        android:id="@+id/text_view_booking_hour"
+        style="@style/DefaultText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/text_label_id"/>
 </LinearLayout>

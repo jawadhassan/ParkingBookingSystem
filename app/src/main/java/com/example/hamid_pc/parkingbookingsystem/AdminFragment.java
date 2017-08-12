@@ -75,6 +75,9 @@ public class AdminFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                Intent intent = AdminBookingListActivity.NewIntet(getActivity());
+                startActivity(intent);
+
             }
         });
 
