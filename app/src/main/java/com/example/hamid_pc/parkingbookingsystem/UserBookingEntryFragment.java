@@ -54,7 +54,9 @@ public class UserBookingEntryFragment extends Fragment {
     private Button mSearchButton;
     private DatabaseReference mDatabaseReference;
     private DatabaseReference mBookingReference;
+    private DatabaseReference mCurrentBookingRef;
     private FirebaseDatabase mFirebaseDatabase;
+    private String mBookingId;
     private String mUserId;
     private RecyclerView mRecyclerView;
     private FirebaseRecyclerAdapter<Area, AreaViewHolder> mAdapter;
@@ -229,9 +231,13 @@ public class UserBookingEntryFragment extends Fragment {
                     @Override
                     public void onClick(final View v) {
                         if (!mBooked) {
-                            Booking booking = new Booking(mPlotId, viewHolder.mArea.getAreaId(),
+
+
+                            mCurrentBookingRef = mBookingReference.push().getRef();
+                            mBookingId = mCurrentBookingRef.getKey();
+                            Booking booking = new Booking(mBookingId, mPlotId, viewHolder.mArea.getAreaId(),
                                     mUserId, viewHolder.mArea.getAreaNum(), mDateInMilli, mHour);
-                            mBookingReference.push().setValue(booking);
+                            mCurrentBookingRef.setValue(booking);
                             v.setEnabled(false);
                         }
 

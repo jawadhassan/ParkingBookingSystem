@@ -21,26 +21,30 @@ public class BookingDetailActivity extends SingleFragmentActivity {
     public static final String EXTRA_HOUR =
             "com.example.hamid_pc.parkingbookingsystem.hour";
 
+    public static final String EXTRA_BOOKING_ID =
+            "com.example.hamid_pc.parkingbookingsystem.booking.id.hour";
 
-    public static Intent NewIntent(Context packageContext, String plotId, String userId, Long startDate, int hour, int areaNum) {
+
+    public static Intent NewIntent(Context packageContext, String bookingId, String plotId, String userId, Long startDate, int hour, int areaNum) {
         Intent intent = new Intent(packageContext, BookingDetailActivity.class);
         intent.putExtra(EXTRA_AREA_NUM, areaNum);
         intent.putExtra(EXTRA_PLOT_ID, plotId);
         intent.putExtra(EXTRA_USER_ID, userId);
         intent.putExtra(EXTRA_START_DATE, startDate);
         intent.putExtra(EXTRA_HOUR, hour);
-
+        intent.putExtra(EXTRA_BOOKING_ID, bookingId);
         return intent;
     }
 
     @Override
     protected Fragment createFragment() {
 
+        String bookingId = getIntent().getStringExtra(EXTRA_BOOKING_ID);
         String plotId = getIntent().getStringExtra(EXTRA_PLOT_ID);
         String userId = getIntent().getStringExtra(EXTRA_USER_ID);
         Long startDate = getIntent().getLongExtra(EXTRA_START_DATE, 0L);
         int hour = getIntent().getIntExtra(EXTRA_HOUR, 0);
         int areaNum = getIntent().getIntExtra(EXTRA_AREA_NUM, 0);
-        return BookingDetailFragment.NewInstance(plotId, userId, areaNum, startDate, hour);
+        return BookingDetailFragment.NewInstance(bookingId, plotId, userId, areaNum, startDate, hour);
     }
 }

@@ -125,6 +125,7 @@ public class AdminUserDetailFragment extends Fragment {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot booking : dataSnapshot.getChildren()) {
                             booking.getRef().removeValue();
+                            getActivity().finish();
                         }
                     }
 

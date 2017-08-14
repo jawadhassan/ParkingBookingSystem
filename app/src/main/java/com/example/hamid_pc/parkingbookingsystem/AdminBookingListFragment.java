@@ -25,12 +25,14 @@ import org.joda.time.format.DateTimeFormatter;
 
 public class AdminBookingListFragment extends Fragment {
 
+    private static final int REQUEST_CODE_BOOKING = 0;
+    private final String TAG = "BookingListActivity";
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     private DividerItemDecoration mDividerItemDecoration;
     private RecyclerView mRecyclerView;
     private FirebaseRecyclerAdapter<Booking, BookingViewHolder> mAdapter;
-
+    private Boolean mBookingDeleted;
 
     public static AdminBookingListFragment NewInstance() {
         AdminBookingListFragment adminBookingListFragment = new AdminBookingListFragment();
@@ -92,6 +94,7 @@ public class AdminBookingListFragment extends Fragment {
 
     }
 
+
     public static class BookingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         Booking mBooking;
         TextView mBookingAreaTextView;
@@ -114,9 +117,8 @@ public class AdminBookingListFragment extends Fragment {
             if (appCompatActivity instanceof AdminBookingListActivity) {
                 AdminBookingListActivity adminBookingListActivity = (AdminBookingListActivity) appCompatActivity;
                 Intent intent = BookingDetailActivity.NewIntent(adminBookingListActivity,
-                        mBooking.getPlotId(), mBooking.getUserId(), mBooking.getStartDateTime(),
+                        mBooking.getBookingId(), mBooking.getPlotId(), mBooking.getUserId(), mBooking.getStartDateTime(),
                         mBooking.getHour(), mBooking.getAreaNum());
-
 
                 adminBookingListActivity.startActivity(intent);
 
@@ -124,12 +126,15 @@ public class AdminBookingListFragment extends Fragment {
 
         }
 
+
         public void bindView(Booking booking) {
             mBooking = booking;
         }
 
 
     }
+
+
 }
 
 

@@ -4,6 +4,7 @@ package com.example.hamid_pc.parkingbookingsystem;
 public class Booking {
 
 
+    private String mBookingId;
     private String mPlotId;
     private String mAreaId;
     private String mUserId;
@@ -11,16 +12,25 @@ public class Booking {
     private Long mStartDateTime;
     private int mHour;
 
-    public Booking(String plotId, String areaId, String userId, int areaNum, Long startDateTime, int hour) {
+    public Booking(String bookingId, String plotId, String areaId, String userId, int areaNum, Long startDateTime, int hour) {
         mPlotId = plotId;
         mAreaId = areaId;
         mUserId = userId;
         mStartDateTime = startDateTime;
         mAreaNum = areaNum;
         mHour = hour;
+        mBookingId = bookingId;
     }
 
     public Booking() {
+    }
+
+    public String getBookingId() {
+        return mBookingId;
+    }
+
+    public void setBookingId(String bookingId) {
+        mBookingId = bookingId;
     }
 
     public int getAreaNum() {

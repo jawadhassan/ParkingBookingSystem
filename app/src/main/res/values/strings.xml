@@ -45,6 +45,6 @@
     <string name="label_edit_text_hours">Hours of Parking:</string>
     <string name="area_num">Area %1$d</string>
     <string name="booking_hour">%1$d</string>
-
+    <string name="booking_deleted">Booking Deleted</string>
 
 </resources>

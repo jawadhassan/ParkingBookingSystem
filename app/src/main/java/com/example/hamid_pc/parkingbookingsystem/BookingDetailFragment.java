@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -30,9 +31,13 @@ public class BookingDetailFragment extends Fragment {
     private static final String USER_ID = "userId";
     private static final String START_DATE = "startId";
     private static final String HOUR = "hour";
+    private static final String BOOKING_ID = "bookingId";
+    private static final String EXTRA_BOOKING =
+            "com.example.hamid_pc.parkingbookingsystem.booking";
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mUserReference;
     private DatabaseReference mPlotReference;
+    private DatabaseReference mBookingReference;
     private TextView mPlotTextView;
     private TextView mAreaTextView;
     private TextView mUserTextView;
@@ -40,6 +45,7 @@ public class BookingDetailFragment extends Fragment {
     private TextView mBookingDateTextView;
     private TextView mBookingTimeTextView;
     private int mAreaNum;
+    private String mBookingId;
     private String mPlotId;
     private String mUserId;
     private Long mStartDate;
@@ -48,7 +54,7 @@ public class BookingDetailFragment extends Fragment {
     private String mUserName;
     private String TAG = "BookingDetailActivity";
 
-    public static BookingDetailFragment NewInstance(String plotId, String userId, int areaNum, Long StartDate, int hour) {
+    public static BookingDetailFragment NewInstance(String bookingId, String plotId, String userId, int areaNum, Long StartDate, int hour) {
         BookingDetailFragment bookingDetailFragment = new BookingDetailFragment();
         Bundle args = new Bundle();
         args.putInt(AREA_NUM, areaNum);
@@ -56,6 +62,7 @@ public class BookingDetailFragment extends Fragment {
         args.putString(USER_ID, userId);
         args.putLong(START_DATE, StartDate);
         args.putInt(HOUR, hour);
+        args.putString(BOOKING_ID, bookingId);
         bookingDetailFragment.setArguments(args);
         return bookingDetailFragment;
     }
@@ -71,8 +78,35 @@ public class BookingDetailFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.miDelete:
+                mBookingReference.orderByChild("bookingId").equalTo(mBookingId).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot booking : dataSnapshot.getChildren()) {
+
+                            booking.getRef().removeValue();
+                            getActivity().finish();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                return true;
+
+
+        }
+
+        return true;
+
+
+
+
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,10 +114,11 @@ public class BookingDetailFragment extends Fragment {
         mAreaNum = getArguments().getInt(AREA_NUM);
         mPlotId = getArguments().getString(PLOT_ID);
         mUserId = getArguments().getString(USER_ID);
-        Log.d(TAG, mUserId);
         mStartDate = getArguments().getLong(START_DATE);
         mHour = getArguments().getInt(HOUR);
+        mBookingId = getArguments().getString(BOOKING_ID);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mBookingReference = mFirebaseDatabase.getReference("bookings");
         mUserReference = mFirebaseDatabase.getReference("users");
         mPlotReference = mFirebaseDatabase.getReference("plots");
 
@@ -163,6 +198,7 @@ public class BookingDetailFragment extends Fragment {
         });
 
 
+
         mAreaTextView.setText(getResources().getString(R.string.area_num, mAreaNum));
 
 
@@ -175,9 +211,10 @@ public class BookingDetailFragment extends Fragment {
 
         mBookingDateTextView.setText(strDate);
         mBookingTimeTextView.setText(strTime);
-
-
         mBookingHourView.setText(getResources().getString(R.string.booking_hour, mHour));
+
         return view;
     }
+
+
 }
