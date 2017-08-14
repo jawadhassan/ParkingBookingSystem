@@ -65,6 +65,7 @@ public class AdminBookingListFragment extends Fragment {
             @Override
             protected void populateViewHolder(BookingViewHolder viewHolder, Booking model, final int position) {
                 Booking booking = getItem(position);
+
                 Long startDateTimeInMillis = model.getStartDateTime();
 
                 DateTime startDateTime = new DateTime(Long.valueOf(startDateTimeInMillis), DateTimeZone.UTC);
@@ -126,6 +127,8 @@ public class AdminBookingListFragment extends Fragment {
         public void bindView(Booking booking) {
             mBooking = booking;
         }
+
+
     }
 }
 

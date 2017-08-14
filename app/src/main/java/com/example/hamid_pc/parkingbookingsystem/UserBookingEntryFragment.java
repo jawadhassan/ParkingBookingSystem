@@ -125,6 +125,7 @@ public class UserBookingEntryFragment extends Fragment {
                 mDate = mDate.secondOfMinute().setCopy(mDateTime.getSecondOfMinute());
                 mDateInMilli = mDate.toDateTime(UTC).getMillis();
                 UpdateUI();
+                mAdapter.notifyDataSetChanged();
                 mRecyclerView.setVisibility(View.VISIBLE);
 
             }
@@ -211,19 +212,23 @@ public class UserBookingEntryFragment extends Fragment {
                             mBooked = false;
                             viewHolder.mAreaButton.setEnabled(!mBooked);
                         }
+
+
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
+
+
                 });
 
 
                 viewHolder.mAreaButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
-                        if (mBooked) {
+                        if (!mBooked) {
                             Booking booking = new Booking(mPlotId, viewHolder.mArea.getAreaId(),
                                     mUserId, viewHolder.mArea.getAreaNum(), mDateInMilli, mHour);
                             mBookingReference.push().setValue(booking);
