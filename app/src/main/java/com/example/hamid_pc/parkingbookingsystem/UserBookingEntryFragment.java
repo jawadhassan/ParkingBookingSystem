@@ -18,6 +18,7 @@ import android.widget.EditText;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -148,15 +149,12 @@ public class UserBookingEntryFragment extends Fragment {
                 Area area = getItem(position);
                 viewHolder.bindView(area);
 
-
-                mBookingReference.orderByChild("areaId").equalTo(viewHolder.mArea.getAreaId()).addListenerForSingleValueEvent(new ValueEventListener() {
-
-
+                mBookingReference.orderByChild("areaId").equalTo(viewHolder.mArea.getAreaId()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            for (DataSnapshot preBookedSnapShot : dataSnapshot.getChildren()) {
-                                Booking preBooking = preBookedSnapShot.getValue(Booking.class);
+                            for (DataSnapshot prebookedSnapShot : dataSnapshot.getChildren()) {
+                                Booking preBooking = prebookedSnapShot.getValue(Booking.class);
                                 DateTime preBookedStartDateTime = new DateTime(preBooking.getStartDateTime(), DateTimeZone.UTC);
 
                                 DateTime preBookedEndDateTime = preBookedStartDateTime.minusMinutes(1);
@@ -193,28 +191,28 @@ public class UserBookingEntryFragment extends Fragment {
                                     // mBookingReference.push().setValue(booking)
                                     mBooked = true;
 
-                                } else if (intervalOne.getEnd().isAfter(intervalTwo.getStart()) && intervalOne.getStart().isBefore(intervalTwo.getEnd())) {
-                                    Log.d(TAG, "Start of Interval One overlaps Interval two");
-                                    mBooked = true;
+                                } /*else if (intervalOne.getEnd().isAfter(intervalTwo.getStart()) && intervalOne.getStart().isBefore(intervalTwo.getEnd())) {
+                                   Log.d(TAG, "Start of Interval One overlaps Interval two");
+                                   mBooked = true;
 
-                                } else if (intervalOne.getStart().isBefore(intervalTwo.getEnd()) && intervalOne.getStart().isAfter(intervalTwo.getStart())) {
-                                    Log.d(TAG, "Start of Interval One and End of Interval Overlap");
-                                    mBooked = true;
+                               } else if (intervalOne.getStart().isBefore(intervalTwo.getEnd()) && intervalOne.getStart().isAfter(intervalTwo.getStart())) {
+                                   Log.d(TAG, "Start of Interval One and End of Interval Overlap");
+                                   mBooked = true;
 
-                                } else {
+                               } */ else {
                                     Log.d(TAG, "EveryThings seems to be fine");
                                     mBooked = false;
                                     //v.setEnabled(false);
                                 }
-                            }
 
-                            viewHolder.mAreaButton.setEnabled(!mBooked);
+
+                                viewHolder.mAreaButton.setEnabled(!mBooked);
+                            }
 
                         } else {
                             mBooked = false;
                             viewHolder.mAreaButton.setEnabled(!mBooked);
                         }
-
 
                     }
 
@@ -222,10 +220,35 @@ public class UserBookingEntryFragment extends Fragment {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-
-
                 });
 
+                mBookingReference.orderByChild("areaId").equalTo(viewHolder.mArea.getAreaId()).addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        mAdapter.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        mAdapter.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
                 viewHolder.mAreaButton.setOnClickListener(new View.OnClickListener() {
                     @Override
